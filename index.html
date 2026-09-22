@@ -77,9 +77,9 @@
 </head>
 <body>
     <div class="hud">
-        <h1>Para Jael (Era de hortensias pero pasaron cosas) 🌻</h1>
-        <p>Feliz Dia de la Amistad, abajo esta la cancion con el poema que te dije que no te iba a mostrar pero al final cedi :,v</p>
-        <!-- Reemplaza el href por el link de tu canción en Spotify -->
+        <h1>Gracias por ser mi amika Jael🌻</h1>
+        <p>Feliz Dia de la Amistad, abajo esta la cancion con el poema que te dije que no te iba a mostrar pero al final cedi :,v. Si mañana el poema lo veo en tiktok te bloqueo en todos lados. Gracias por todo, no se cuantas veces te agradesco tu amistad pero nunca son ni seran las suficientes, enserio, gracias por todo lo que haces por mi. Perdon si a veces me comporto como un baboso</p>
+       
         <a class="spotify-badge" href="https://open.spotify.com/intl-es/track/02Od4D0dQmHxSpFJ0c0XYu?si=959ee5fc02da4b86" target="_blank" rel="noopener noreferrer">
             <svg class="spotify-icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 4.32-1.32 9.719-.66 13.437 1.621.361.181.54.78.304 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.18-1.2-.181-1.38-.72-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
@@ -100,21 +100,13 @@
     </div>
 
     <canvas id="gc"></canvas>
-
-    <!--
-      Reemplaza "tu-cancion.mp3" por el nombre de tu archivo de audio y
-      colócalo en la misma carpeta que este .html (o pon aquí una URL).
-      El autoplay con sonido está bloqueado por los navegadores hasta que
-      el usuario interactúa con la página, así que el script de abajo
-      intenta reproducirla al cargar y, si falla, la arranca en el primer
-      toque/clic.
-    -->
+    
     <audio id="bgAudio" src="aspasia.mp3" loop preload="auto"></audio>
     <button id="audioToggle" aria-label="Silenciar música">🔊</button>
 
     <script>
     'use strict';
-    // ─── Versos de Altazor, Canto II (Vicente Huidobro) ─────────────────────
+
     const LINES = [
         { text: "Mujer el mundo está amueblado por tus ojos", emoji: "🌻" },
         { text: "Se hace más alto el cielo en tu presencia", emoji: "🌼" },
@@ -153,16 +145,12 @@
         lineOpen = false;
     }
 
-    // ─── Canvas + DPI (nítido en móviles, con tope para no matar el rendimiento) ──
-    // Pensado principalmente para celular: dedo grueso = pointer coarse.
-    // En esos dispositivos se limita un poco más el DPR (menos píxeles que
-    // dibujar = más batería/fluidez) sin que se note al tacto.
     const IS_MOBILE = !!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
 
     const canvas = document.getElementById('gc');
     const ctx    = canvas.getContext('2d', { alpha: false });
     const DPR    = Math.min(window.devicePixelRatio || 1, IS_MOBILE ? 1.75 : 2);
-    let W = 0, H = 0; // en píxeles CSS; el contexto se escala una vez con setTransform
+    let W = 0, H = 0; 
 
     function resize() {
         W = window.innerWidth;
@@ -179,15 +167,14 @@
 
     const REDUCE_MOTION = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
-    // ─── Partículas (N adaptativo según tamaño de pantalla) ──────────────────
     const screenArea = window.innerWidth * window.innerHeight;
     const N = IS_MOBILE
-        ? (screenArea > 350000 ? 650 : 450)              // techos más bajos: prioriza fluidez táctil
+        ? (screenArea > 350000 ? 650 : 450)             
         : (screenArea > 500000 ? 900 : (screenArea > 250000 ? 650 : 450));
     const ARMS = 5;
     const MSGS = ["Feliz dia jaell","Gracias por la comida que me das","Gracias por la amistad que me das","Gracias por alegras mis diash","Tontatontatonta me caes bien","Eres delas mejores cosas que me paso en la u","Gracias por tenerme paciencia"];
-    const EMOJ = ["🌻","🌻","🌼","✨","🌻","🌼"];          // misma distribución/pesos que el original
-    const UNIQUE_GLYPHS = [...new Set(EMOJ)];               // solo 3 glifos únicos que hace falta dibujar
+    const EMOJ = ["🌻","🌻","🌼","✨","🌻","🌼"];    
+    const UNIQUE_GLYPHS = [...new Set(EMOJ)];               
 
     const TYPE_STAR = 0, TYPE_FLOWER = 1, TYPE_TEXT = 2;
 
@@ -195,11 +182,10 @@
     const pix = new Float32Array(N), piy = new Float32Array(N), piz = new Float32Array(N);
     const siz = new Float32Array(N);
     const typ = new Uint8Array(N);
-    const bucket   = new Uint8Array(N); // solo estrellas: bucket de color
-    const variant  = new Uint8Array(N); // solo flores: índice en UNIQUE_GLYPHS
-    const msgIdx   = new Uint8Array(N); // solo texto: índice en MSGS
+    const bucket   = new Uint8Array(N); 
+    const variant  = new Uint8Array(N); 
+    const msgIdx   = new Uint8Array(N); 
 
-    // screenX/Y guardados para hit-test (solo TYPE_FLOWER)
     const scx = new Float32Array(N), scy = new Float32Array(N), scr = new Float32Array(N);
 
     const N_BUCKETS = 12;
@@ -213,7 +199,7 @@
         bucketColor[b] = `rgb(${fn(0)},${fn(8)},${fn(4)})`;
     }
 
-    const flowerTextIdx = []; // solo flores + texto, para el sort por profundidad (mucho más corto que N)
+    const flowerTextIdx = [];
 
     for (let i = 0; i < N; i++) {
         const radius = Math.random() * 900;
@@ -237,12 +223,6 @@
         }
     }
 
-    // ─── Sprites pre-renderizados ─────────────────────────────────────────────
-    // Dibujar emoji con fillText en cada frame es caro (rasteriza el glifo cada
-    // vez) y aquí se llamaba ~225 veces por frame con un tamaño de fuente que
-    // casi nunca se repetía, así que el cache de ctx.font tampoco ayudaba.
-    // Se renderiza cada glifo UNA sola vez a un canvas aparte y luego, en el
-    // bucle de animación, solo se hace drawImage() escalado: mucho más barato.
     const SPRITE_SRC = 192;
     function makeGlyphSprite(glyph) {
         const c = document.createElement('canvas');
@@ -273,15 +253,11 @@
     }
     const textSprites = MSGS.map(makeTextSprite);
 
-    // ─── Cámara ───────────────────────────────────────────────────────────────
-    // En pantallas altas y angostas (celular en vertical) se aleja un poco
-    // la cámara de partida para que la galaxia entre completa sin recortes.
     const portrait = window.innerHeight > window.innerWidth;
     let rotT = 0, rotC = 0, pitT = 1.1, pitC = 1.1, zoom = portrait ? 520 : 400;
     const FOV = 600;
-    const AUTO_ROTATE_SPEED = REDUCE_MOTION ? 0.02 : 0.072; // rad/seg (antes: 0.0012/frame a 60fps)
+    const AUTO_ROTATE_SPEED = REDUCE_MOTION ? 0.02 : 0.072; 
 
-    // ─── Hit-test (tap sobre flor) ─────────────────────────────────────────────
     function hitTest(tapX, tapY) {
         let best = -1, bestDist = Infinity;
         for (let k = 0; k < flowerTextIdx.length; k++) {
@@ -294,7 +270,6 @@
         return best;
     }
 
-    // ─── Input ──────────────────────────────────────────────────────────────
     let dragging = false, lastX = 0, lastY = 0, pinchBase = null, tapMoved = false;
 
     canvas.addEventListener('touchstart', e => {
@@ -351,16 +326,14 @@
     canvas.addEventListener('mouseleave', () => { dragging = false; });
     canvas.addEventListener('wheel', e => { zoom = Math.max(80, Math.min(1800, zoom + e.deltaY)); }, { passive: true });
 
-    // ─── Sort (solo flores + texto; las estrellas no lo necesitan) ────────────
     const sortIdx = flowerTextIdx.slice();
     function sortByDepth(a, b) { return piz[b] - piz[a]; }
 
-    // ─── Render loop (independiente del framerate, se pausa en segundo plano) ─
     let rafId = null, lastTime = performance.now();
 
     function frame(now) {
         rafId = requestAnimationFrame(frame);
-        const dt = Math.min((now - lastTime) / 1000, 0.05); // clamp: evita saltos al volver de pausa
+        const dt = Math.min((now - lastTime) / 1000, 0.05); 
         lastTime = now;
 
         ctx.fillStyle = '#050505';
@@ -374,14 +347,12 @@
         const cosR = Math.cos(rotC), sinR = Math.sin(rotC);
         const cosP = Math.cos(pitC), sinP = Math.sin(pitC);
 
-        // Anillo central
         const rd = FOV / (FOV + zoom);
         ctx.strokeStyle = 'rgba(255,220,0,0.55)'; ctx.lineWidth = 12 * rd;
         ctx.beginPath(); ctx.ellipse(W/2, H/2, Math.max(5, 110*rd), Math.max(5, 110*rd*Math.abs(cosP)), 0, 0, Math.PI*2); ctx.stroke();
         ctx.strokeStyle = 'rgba(255,255,255,0.7)'; ctx.lineWidth = 3 * rd;
         ctx.beginPath(); ctx.ellipse(W/2, H/2, Math.max(5, 125*rd), Math.max(3, 125*rd*Math.abs(cosP)), 0, 0, Math.PI*2); ctx.stroke();
 
-        // Proyectar TODAS las partículas en una sola pasada
         for (let i = 0; i < N; i++) {
             const rx  = px[i] * cosR - py[i] * sinR;
             const ry1 = px[i] * sinR + py[i] * cosR;
@@ -390,7 +361,6 @@
             piz[i] = ry1 * sinP + pz[i] * cosP;
         }
 
-        // ── Estrellas: agrupadas por color, un solo fill() por bucket (antes: uno por estrella) ──
         for (let b = 0; b < N_BUCKETS; b++) {
             const list = bucketStars[b];
             if (!list.length) continue;
@@ -412,7 +382,6 @@
             if (any) { ctx.fillStyle = bucketColor[b]; ctx.fill(); }
         }
 
-        // ── Flores + texto flotante: pocas, se ordenan por profundidad y se dibujan con sprites ──
         for (let k = 0; k < sortIdx.length; k++) sortIdx[k] = flowerTextIdx[k];
         sortIdx.sort(sortByDepth);
 
@@ -426,10 +395,10 @@
 
             if (typ[i] === TYPE_FLOWER) {
                 const fs = Math.max(1, Math.min(80, siz[i] * ds));
-                scx[i] = sx; scy[i] = sy; scr[i] = fs * 0.5; // para hit-test
+                scx[i] = sx; scy[i] = sy; scr[i] = fs * 0.5; 
                 const sprite = glyphSprites[variant[i]];
                 ctx.drawImage(sprite, sx - fs/2, sy - fs/2, fs, fs);
-            } else { // TYPE_TEXT
+            } else { 
                 const fs = Math.max(6, Math.min(40, siz[i] * ds));
                 const sp = textSprites[msgIdx[i]];
                 const scale = fs / TEXT_BASE_FONT;
@@ -440,19 +409,16 @@
         }
     }
 
-    // ─── Música de fondo ────────────────────────────────────────────────────
     const bgAudio     = document.getElementById('bgAudio');
     const audioToggle = document.getElementById('audioToggle');
     bgAudio.volume = 0.1;
-    let audioWanted = true; // el usuario no la ha silenciado a propósito
+    let audioWanted = true; 
 
     function tryPlayAudio() {
         const p = bgAudio.play();
         if (p && p.catch) {
             p.then(() => { audioToggle.textContent = '🔊'; })
              .catch(() => {
-                // Bloqueado por la política de autoplay del navegador: se
-                // arrancará en la primera interacción del usuario (ver abajo).
                 audioToggle.textContent = '🔈';
              });
         }
@@ -464,7 +430,7 @@
     }
     window.addEventListener('pointerdown', startAudioOnFirstInteraction);
     window.addEventListener('keydown', startAudioOnFirstInteraction);
-    tryPlayAudio(); // intento inicial, funcionará si el navegador lo permite
+    tryPlayAudio(); 
 
     audioToggle.addEventListener('click', () => {
         if (bgAudio.paused) {
